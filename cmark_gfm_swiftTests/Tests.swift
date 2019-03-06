@@ -452,5 +452,26 @@ class Tests: XCTestCase {
         XCTAssertEqual(html, expected)
     }
 
+    func testRenderFootnote() {
+        let markdown = """
+            This is some text![^1].
+
+            [^1]: Some *bolded* footnote definition.
+            """
+        let html = Node(markdown: markdown)!.html
+        let expected = """
+            <p>This is some text!<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>.</p>
+            <section class="footnotes">
+            <ol>
+            <li id="fn1">
+            <p>Some <em>bolded</em> footnote definition. <a href="#fnref1" class="footnote-backref">↩</a></p>
+            </li>
+            </ol>
+            </section>
+
+            """
+        XCTAssertEqual(html, expected)
+    }
+
 }
 
