@@ -93,6 +93,8 @@
 		29C28E322070A6B9002C19F7 /* checkbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 29C28E302070A6B9002C19F7 /* checkbox.c */; };
 		29C28E3C2070A6F4002C19F7 /* cmark_gfm_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2911C5612070879600732441 /* cmark_gfm_swift.framework */; };
 		29C28E432070A70F002C19F7 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C28E422070A70F002C19F7 /* Tests.swift */; };
+		A14D7F392230781400856121 /* emoji_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A14D7F372230781400856121 /* emoji_list.h */; };
+		A178A48E222FD4240064C487 /* emoji.c in Sources */ = {isa = PBXBuildFile; fileRef = A178A48D222FD4240064C487 /* emoji.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +198,9 @@
 		29C28E372070A6F4002C19F7 /* cmark_gfm_swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cmark_gfm_swiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C28E3B2070A6F4002C19F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29C28E422070A70F002C19F7 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		A14D7F372230781400856121 /* emoji_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = emoji_list.h; sourceTree = "<group>"; };
+		A178A48C222FD3EE0064C487 /* emoji.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = emoji.h; sourceTree = "<group>"; };
+		A178A48D222FD4240064C487 /* emoji.c */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = emoji.c; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +275,7 @@
 				29C28DA52070A5EF002C19F7 /* cmark.c */,
 				29C28DDD2070A5EF002C19F7 /* commonmark.c */,
 				29C28DE72070A5EF002C19F7 /* core-extensions.c */,
+				A178A48D222FD4240064C487 /* emoji.c */,
 				29C28DB22070A5EF002C19F7 /* entities.inc */,
 				29C28DB32070A5EF002C19F7 /* ext_scanners.c */,
 				29C28DE32070A5EF002C19F7 /* footnotes.c */,
@@ -319,6 +325,8 @@
 				29C28DB72070A5EF002C19F7 /* cmarkextensions_export.h */,
 				29C28DBC2070A5EF002C19F7 /* config.h */,
 				29C28DC32070A5EF002C19F7 /* core-extensions.h */,
+				A14D7F372230781400856121 /* emoji_list.h */,
+				A178A48C222FD3EE0064C487 /* emoji.h */,
 				29C28DD02070A5EF002C19F7 /* ext_scanners.h */,
 				29C28DBE2070A5EF002C19F7 /* footnotes.h */,
 				29C28DD12070A5EF002C19F7 /* houdini.h */,
@@ -379,6 +387,7 @@
 				29C28E082070A5EF002C19F7 /* registry.h in Headers */,
 				29C28E072070A5EF002C19F7 /* core-extensions.h in Headers */,
 				29C28E122070A5EF002C19F7 /* table.h in Headers */,
+				A14D7F392230781400856121 /* emoji_list.h in Headers */,
 				29C28E012070A5EF002C19F7 /* chunk.h in Headers */,
 				29C28E002070A5EF002C19F7 /* config.h in Headers */,
 				29C28E182070A5EF002C19F7 /* references.h in Headers */,
@@ -505,6 +514,7 @@
 				29C28DF32070A5EF002C19F7 /* latex.c in Sources */,
 				29C28DEC2070A5EF002C19F7 /* man.c in Sources */,
 				29C28E1C2070A5EF002C19F7 /* references.c in Sources */,
+				A178A48E222FD4240064C487 /* emoji.c in Sources */,
 				29C28DF02070A5EF002C19F7 /* cmark_ctype.c in Sources */,
 				29C286F7207087CF002C19F7 /* Node+Elements.swift in Sources */,
 				29C28E252070A5EF002C19F7 /* scanners.c in Sources */,

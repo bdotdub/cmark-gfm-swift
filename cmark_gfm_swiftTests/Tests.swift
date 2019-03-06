@@ -11,6 +11,7 @@ extension TextElement {
         case .strikethrough(let children): return children.string
         case .strong(let children): return children.string
         case .text(let text): return text
+        case .emoji(let emoji): return emoji
         default: return ""
         }
     }
@@ -398,6 +399,43 @@ class Tests: XCTestCase {
         XCTAssertEqual(html, "<p>Mentioning <a href=\"https://github.com/user\">@user</a> bla bla</p>\n")
     }
 
+    func testRenderEmoji() {
+        let markdown = "This is :fire: woo"
+        let html = Node(markdown: markdown)!.html
+
+      XCTAssertEqual(html, "<p>This is 🔥 woo</p>\n")
+    }
+
+    func testRenderEmoji_withDifferentEmoji() {
+        let markdown = "Tropical :palm_tree:"
+        let html = Node(markdown: markdown)!.html
+
+        XCTAssertEqual(html, "<p>Tropical 🌴</p>\n")
+    }
+
+    func testRenderEmoji_withInvalidEmoji() {
+        let markdown = "This is :notvalidemoji:"
+        let html = Node(markdown: markdown)!.html
+
+        XCTAssertEqual(html, "<p>This is :notvalidemoji:</p>\n")
+    }
+
+    func testRenderHTML_withList() {
+        let markdown = """
+                - One
+                - Two
+                """
+        let html = Node(markdown: markdown)!.html
+        let expected = """
+                <ul>
+                <li>One</li>
+                <li>Two</li>
+                </ul>
+
+                """
+        XCTAssertEqual(html, expected)
+    }
+
     func testRenderHTML_withCheckbox() {
         let markdown = """
             - [ ] One
@@ -406,8 +444,8 @@ class Tests: XCTestCase {
         let html = Node(markdown: markdown)!.html
         let expected = """
             <ul>
-            <li><input type="checkbox" /> One</li>
-            <li><input type="checkbox" checked /> Two</li>
+            <li class="task-list-item"><input type="checkbox" disabled /> One</li>
+            <li class="task-list-item"><input type="checkbox" disabled checked /> Two</li>
             </ul>
 
             """
