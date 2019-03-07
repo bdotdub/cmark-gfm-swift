@@ -458,7 +458,7 @@ class Tests: XCTestCase {
 
             [^1]: Some *bolded* footnote definition.
             """
-        let html = Node(markdown: markdown)!.html
+        let html = Node(markdown: markdown, options: [.footnotes])!.html
         let expected = """
             <p>This is some text!<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>.</p>
             <section class="footnotes">
