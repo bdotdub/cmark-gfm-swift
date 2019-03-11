@@ -47,7 +47,7 @@ var extensions: [MarkdownExtensions] = [
 
 if let parsed = Node(
   markdown: markdownText,
-  options: options
+  options: options,
   extensions: extensions
 )?.html {
   print("HTML parsed: \(parsed)")
