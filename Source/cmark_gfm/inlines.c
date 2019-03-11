@@ -1311,8 +1311,8 @@ static int parse_inline(cmark_parser *parser, subject *subj, cmark_node *parent,
     }
     break;
   case '[':
-    advance(subj);
-    if (peek_char(subj) != '[') {
+    if (peek_char_n(subj, 1) != '[') {
+      advance(subj);
       new_inl = make_str(subj, subj->pos - 1, subj->pos - 1, cmark_chunk_literal("["));
       push_bracket(subj, false, new_inl);
       break;

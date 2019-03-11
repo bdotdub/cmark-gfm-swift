@@ -9,26 +9,53 @@ const char *cmark_node_get_wikilink(cmark_node *node) {
     return NULL;
   }
 
+  // str is of form [x|x]] where x could be empty
   const char* str = cmark_chunk_to_cstr(cmark_node_mem(node), (cmark_chunk *)node->as.opaque);
 
-  const char* line_delim = "|";
-  const char* bracket_delim = "]";
+  const char* delim = "|";
+
+  // Length of string without [ and ]
+  unsigned long wikilinkLen = strlen(str) - 3;
+
+  char* wikilink = calloc(wikilinkLen, sizeof(char));
+  if (!wikilink) {
+    return NULL;
+  }
+  strncpy(wikilink, &str[1], wikilinkLen);
 
   char* token;
+  token = strtok((char*)wikilink, delim);
 
-  token = strtok((char*)str, line_delim);
+  if (token == NULL) {
+    return NULL;
+  }
 
   char* desc = calloc(strlen(token), sizeof(char));
+  if (!desc) {
+    return NULL;
+  }
   strcat(desc, token);
 
-  token = strtok(NULL, bracket_delim);
+  token = strtok(NULL, delim);
 
-  char* contents = calloc(strlen(token) + strlen(desc), sizeof(char));
+  unsigned long linkLen = token == NULL ? strlen(desc) : strlen(token);
 
-  strcat(contents, token);
+  char* contents = calloc(linkLen + strlen(desc), sizeof(char));
+  if (!contents) {
+    return NULL;
+  }
+
+  // If the second token is empty, we use the description as the link
+  if (token == NULL) {
+    strcat(contents, desc);
+  } else {
+    strcat(contents, token);
+  }
+
   strcat(contents, "\">");
   strcat(contents, desc);
 
+  free(wikilink);
   free(desc);
 
   return contents;
@@ -53,21 +80,19 @@ static cmark_node *match(cmark_syntax_extension *self, cmark_parser *parser,
 
   end++;
 
-  // Read description of wikilink up until we see a '|' character
-  while (end < size && data[end] != '|') {
-    end++;
-  }
-
-  // Consume '|' character
-  end++;
-
-  // Read file name of wikilink up until we see the first terminating ']'
+  // Read up until we see the first terminating ']'
   while (end < size && data[end] != ']') {
     end++;
   }
 
-  // Consume the final two ']' characters
-  end += 2;
+  // Try to consume the final two ']' characters
+  for (int i = 0; i < 2; i++) {
+    if (data[end] == ']') {
+      end++;
+    } else {
+      return NULL;
+    }
+  }
 
   if (end == at) {
     return NULL;

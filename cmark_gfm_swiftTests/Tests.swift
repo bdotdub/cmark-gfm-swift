@@ -473,6 +473,54 @@ class Tests: XCTestCase {
         XCTAssertEqual(html, expected)
     }
 
+    func testRenderPartWikiLink() {
+        let markdown = """
+                    This is part of a wikilink [[
+                    """
+        let html = Node(markdown: markdown, extensions: [.wikilink])!.html
+        let expected = """
+                    <p>This is part of a wikilink [[</p>
+
+                    """
+        XCTAssertEqual(html, expected)
+    }
+
+    func testRenderEmptyWikiLink() {
+        let markdown = """
+                        This is an empty wikilink [[|]]
+                        """
+        let html = Node(markdown: markdown, extensions: [.wikilink])!.html
+        let expected = """
+                        <p>This is an empty wikilink </p>
+
+                        """
+        XCTAssertEqual(html, expected)
+    }
+
+    func testRenderHalfEmptyWikiLink() {
+        let markdown = """
+                        This is a half empty wikilink [[description|]]
+                        """
+        let html = Node(markdown: markdown, extensions: [.wikilink])!.html
+        let expected = """
+                        <p>This is a half empty wikilink <a href="description">description</a></p>
+
+                        """
+        XCTAssertEqual(html, expected)
+    }
+
+    func testRenderWikiLink_withOnlyDescription() {
+        let markdown = """
+                        This is a half empty wikilink [[description]]
+                        """
+        let html = Node(markdown: markdown, extensions: [.wikilink])!.html
+        let expected = """
+                        <p>This is a half empty wikilink <a href="description">description</a></p>
+
+                        """
+        XCTAssertEqual(html, expected)
+    }
+
     func testRenderWikiLink() {
         let markdown = """
                 This is a [[WikiLink|./file.md]]
