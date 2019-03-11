@@ -94,6 +94,8 @@
 		29C28E3C2070A6F4002C19F7 /* cmark_gfm_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2911C5612070879600732441 /* cmark_gfm_swift.framework */; };
 		29C28E432070A70F002C19F7 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C28E422070A70F002C19F7 /* Tests.swift */; };
 		A14D7F392230781400856121 /* emoji_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A14D7F372230781400856121 /* emoji_list.h */; };
+		A163201B2235F6A3005FC8E0 /* wikilink.h in Headers */ = {isa = PBXBuildFile; fileRef = A16320192235F6A3005FC8E0 /* wikilink.h */; };
+		A163201C2235F6A3005FC8E0 /* wikilink.c in Sources */ = {isa = PBXBuildFile; fileRef = A163201A2235F6A3005FC8E0 /* wikilink.c */; };
 		A178A48E222FD4240064C487 /* emoji.c in Sources */ = {isa = PBXBuildFile; fileRef = A178A48D222FD4240064C487 /* emoji.c */; };
 /* End PBXBuildFile section */
 
@@ -199,6 +201,8 @@
 		29C28E3B2070A6F4002C19F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29C28E422070A70F002C19F7 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		A14D7F372230781400856121 /* emoji_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = emoji_list.h; sourceTree = "<group>"; };
+		A16320192235F6A3005FC8E0 /* wikilink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wikilink.h; sourceTree = "<group>"; };
+		A163201A2235F6A3005FC8E0 /* wikilink.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = wikilink.c; sourceTree = "<group>"; };
 		A178A48C222FD3EE0064C487 /* emoji.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = emoji.h; sourceTree = "<group>"; };
 		A178A48D222FD4240064C487 /* emoji.c */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = emoji.c; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
@@ -305,6 +309,7 @@
 				29C28DAC2070A5EF002C19F7 /* table.c */,
 				29C28DB42070A5EF002C19F7 /* tagfilter.c */,
 				29C28DD72070A5EF002C19F7 /* utf8.c */,
+				A163201A2235F6A3005FC8E0 /* wikilink.c */,
 				29C28DA32070A5EF002C19F7 /* xml.c */,
 			);
 			path = cmark_gfm;
@@ -348,6 +353,7 @@
 				29C28DCE2070A5EF002C19F7 /* table.h */,
 				29C28DCF2070A5EF002C19F7 /* tagfilter.h */,
 				29C28DD32070A5EF002C19F7 /* utf8.h */,
+				A16320192235F6A3005FC8E0 /* wikilink.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -386,6 +392,7 @@
 				29C28DFB2070A5EF002C19F7 /* cmarkextensions_export.h in Headers */,
 				29C28E082070A5EF002C19F7 /* registry.h in Headers */,
 				29C28E072070A5EF002C19F7 /* core-extensions.h in Headers */,
+				A163201B2235F6A3005FC8E0 /* wikilink.h in Headers */,
 				29C28E122070A5EF002C19F7 /* table.h in Headers */,
 				A14D7F392230781400856121 /* emoji_list.h in Headers */,
 				29C28E012070A5EF002C19F7 /* chunk.h in Headers */,
@@ -546,6 +553,7 @@
 				29C28DF52070A5EF002C19F7 /* syntax_extension.c in Sources */,
 				29C286F0207087CF002C19F7 /* ASTOperations.swift in Sources */,
 				29C28E312070A6B9002C19F7 /* mention.c in Sources */,
+				A163201C2235F6A3005FC8E0 /* wikilink.c in Sources */,
 				29C28DF42070A5EF002C19F7 /* houdini_href_e.c in Sources */,
 				29C286EF207087CF002C19F7 /* Element.swift in Sources */,
 				29C286FD207087CF002C19F7 /* SwiftAST.swift in Sources */,

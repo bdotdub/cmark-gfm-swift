@@ -473,5 +473,29 @@ class Tests: XCTestCase {
         XCTAssertEqual(html, expected)
     }
 
+    func testRenderWikiLink() {
+        let markdown = """
+                This is a [[WikiLink|./file.md]]
+                """
+        let html = Node(markdown: markdown, extensions: [.wikilink])!.html
+        let expected = """
+                <p>This is a <a href="./file.md">WikiLink</a></p>
+
+                """
+        XCTAssertEqual(html, expected)
+    }
+
+    func testRenderNormalLink() {
+        let markdown = """
+                    This is a [Normal Link](https://example.com)
+                    """
+        let html = Node(markdown: markdown, extensions: [.wikilink])!.html
+        let expected = """
+                    <p>This is a <a href="https://example.com">Normal Link</a></p>
+
+                    """
+        XCTAssertEqual(html, expected)
+    }
+
 }
 
