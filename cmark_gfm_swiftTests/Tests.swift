@@ -485,6 +485,16 @@ class Tests: XCTestCase {
         XCTAssertEqual(html, expected)
     }
 
+    func testRenderAnotherPartWikiLink() {
+        let markdown = "[[]\n"
+        let html = Node(markdown: markdown, extensions: [.wikilink])!.html
+        let expected = """
+                        <p>[[]</p>
+
+                        """
+        XCTAssertEqual(html, expected)
+    }
+
     func testRenderEmptyWikiLink() {
         let markdown = """
                         This is an empty wikilink [[|]]

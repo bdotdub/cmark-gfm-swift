@@ -17,46 +17,42 @@ const char *cmark_node_get_wikilink(cmark_node *node) {
   // Length of string without [ and ]
   unsigned long wikilinkLen = strlen(str) - 3;
 
-  char* wikilink = calloc(wikilinkLen, sizeof(char));
+  char* wikilink = calloc(wikilinkLen + 1, sizeof(char));
   if (!wikilink) {
     return NULL;
   }
   strncpy(wikilink, &str[1], wikilinkLen);
 
-  char* token;
-  token = strtok((char*)wikilink, delim);
+  // Get first string (the description) from seperated
+  char* description = strsep(&wikilink, delim);
 
-  if (token == NULL) {
+  // Description is empty
+  if (description == NULL || strcmp(description, "") == 0) {
     return NULL;
   }
 
-  char* desc = calloc(strlen(token), sizeof(char));
-  if (!desc) {
-    return NULL;
-  }
-  strcat(desc, token);
+  unsigned long descLen = strlen(description);
 
-  token = strtok(NULL, delim);
+  // Setup contents for return result
+  char* contents = calloc(descLen, sizeof(char));
 
-  unsigned long linkLen = token == NULL ? strlen(desc) : strlen(token);
+  char* link = strsep(&wikilink, delim);
 
-  char* contents = calloc(linkLen + strlen(desc), sizeof(char));
-  if (!contents) {
-    return NULL;
-  }
-
-  // If the second token is empty, we use the description as the link
-  if (token == NULL) {
-    strcat(contents, desc);
+  // Link is empty, so use description as link
+  if (link == NULL || strcmp(link, "") == 0) {
+    // Allocate contents to double description length + length of \"> + null terminator
+    contents = realloc(contents, (descLen * 2) + 3);
+    strcat(contents, description);
+    strcat(contents, "\">");
+    strcat(contents, description);
   } else {
-    strcat(contents, token);
+    // Allocate contents to description length + link length
+    // + length of \"> + null terminator
+    contents = realloc(contents, descLen + strlen(link) + 3);
+    strcat(contents, link);
+    strcat(contents, "\">");
+    strcat(contents, description);
   }
-
-  strcat(contents, "\">");
-  strcat(contents, desc);
-
-  free(wikilink);
-  free(desc);
 
   return contents;
 }
