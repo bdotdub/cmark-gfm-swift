@@ -199,7 +199,7 @@
 		29C28E302070A6B9002C19F7 /* checkbox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = checkbox.c; sourceTree = "<group>"; };
 		29C28E372070A6F4002C19F7 /* cmark_gfm_swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cmark_gfm_swiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C28E3B2070A6F4002C19F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		29C28E422070A70F002C19F7 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		29C28E422070A70F002C19F7 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; tabWidth = 4; };
 		A14D7F372230781400856121 /* emoji_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = emoji_list.h; sourceTree = "<group>"; };
 		A16320192235F6A3005FC8E0 /* wikilink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wikilink.h; sourceTree = "<group>"; };
 		A163201A2235F6A3005FC8E0 /* wikilink.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = wikilink.c; sourceTree = "<group>"; };

@@ -40,6 +40,8 @@ static cmark_node *match(cmark_syntax_extension *self, cmark_parser *parser,
     // Go past last :
     if (data[end] == ':') {
         end++;
+    } else {
+        return NULL;
     }
 
     if (end == at) {

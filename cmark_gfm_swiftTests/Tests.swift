@@ -413,6 +413,13 @@ class Tests: XCTestCase {
         XCTAssertEqual(html, "<p>Tropical 🌴</p>\n")
     }
 
+    func testRenderBold_withColon() {
+        let markdown = "**i am a test:**"
+        let html = Node(markdown: markdown)!.html
+
+        XCTAssertEqual(html, "<p><strong>i am a test:</strong></p>\n")
+    }
+
     func testRenderEmoji_withInvalidEmoji() {
         let markdown = "This is :notvalidemoji:"
         let html = Node(markdown: markdown)!.html
