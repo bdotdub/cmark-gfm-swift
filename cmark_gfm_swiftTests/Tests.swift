@@ -63,7 +63,7 @@ class Tests: XCTestCase {
             | --- | --- |
             | baz | bim |
             """
-        let rootNode = Node(markdown: markdown)!
+        let rootNode = Node(markdown: markdown, extensions: [.table])!
         let blocks = rootNode.elements
         XCTAssertEqual(blocks.count, 1)
     }
@@ -72,7 +72,7 @@ class Tests: XCTestCase {
         let markdown = """
             ~~foo~~
             """
-        let rootNode = Node(markdown: markdown)!
+        let rootNode = Node(markdown: markdown, extensions: [.strikethrough])!
         let blocks = rootNode.elements
         XCTAssertEqual(blocks.count, 1)
     }
@@ -81,7 +81,7 @@ class Tests: XCTestCase {
         let markdown = """
             https://github.com
             """
-        let rootNode = Node(markdown: markdown)!
+        let rootNode = Node(markdown: markdown, extensions: [.autolink])!
         let blocks = rootNode.elements
         XCTAssertEqual(blocks.count, 1)
     }
@@ -99,7 +99,7 @@ class Tests: XCTestCase {
 
     func testMarkdownMention_withAlpha() {
         let markdown = "@user"
-        let node = Node(markdown: markdown)!
+        let node = Node(markdown: markdown, extensions: [.mention])!
         XCTAssertEqual(node.elements.count, 1)
 
         guard case .paragraph(let paragraph)? = node.elements.first else { fatalError() }
@@ -109,7 +109,7 @@ class Tests: XCTestCase {
 
     func testMarkdownMention_withAlpha_withNumeric() {
         let markdown = "@user123'"
-        let node = Node(markdown: markdown)!
+        let node = Node(markdown: markdown, extensions: [.mention])!
         XCTAssertEqual(node.elements.count, 1)
 
         guard case .paragraph(let paragraph)? = node.elements.first else { fatalError() }
@@ -119,7 +119,7 @@ class Tests: XCTestCase {
 
     func testMarkdownMention_withAlpha_withNumeric_withHyphen() {
         let markdown = "@user-123"
-        let node = Node(markdown: markdown)!
+        let node = Node(markdown: markdown, extensions: [.mention])!
         XCTAssertEqual(node.elements.count, 1)
 
         guard case .paragraph(let paragraph)? = node.elements.first else { fatalError() }
@@ -129,7 +129,7 @@ class Tests: XCTestCase {
 
     func testMarkdownMention_withWordsSurrounding() {
         let markdown = "foo @user bar"
-        let node = Node(markdown: markdown)!
+        let node = Node(markdown: markdown, extensions: [.mention])!
         XCTAssertEqual(node.elements.count, 1)
 
         guard case .paragraph(let paragraph)? = node.elements.first else { fatalError() }
@@ -145,7 +145,7 @@ class Tests: XCTestCase {
 
     func testMarkdownCheckbox_withUnchecked() {
         let markdown = "- [ ] test"
-        let node = Node(markdown: markdown)!
+        let node = Node(markdown: markdown, extensions: [.checkbox])!
         XCTAssertEqual(node.elements.count, 1)
 
         guard case .list(let items, _)? = node.elements.first else { fatalError() }
@@ -164,13 +164,13 @@ class Tests: XCTestCase {
             - [x] bar
               - [x] bar 2
             """
-        let node = Node(markdown: markdown)!
+        let node = Node(markdown: markdown, extensions: [.checkbox])!
         XCTAssertEqual(node.elements.count, 1)
     }
 
     func testMarkdownCheckbox_withChecked() {
         let markdown = "- [x] test"
-        let node = Node(markdown: markdown)!
+        let node = Node(markdown: markdown, extensions: [.checkbox])!
         XCTAssertEqual(node.elements.count, 1)
 
         guard case .list(let items, _)? = node.elements.first else { fatalError() }
@@ -184,7 +184,7 @@ class Tests: XCTestCase {
 
     func testMarkdownCheckbox_withCheckboxPatternInMiddleOfItem() {
         let markdown = "- foo [ ] bar"
-        let node = Node(markdown: markdown)!
+        let node = Node(markdown: markdown, extensions: [.checkbox])!
         XCTAssertEqual(node.elements.count, 1)
 
         guard case .list(let items, _)? = node.elements.first else { fatalError() }
@@ -194,7 +194,7 @@ class Tests: XCTestCase {
 
     func testMarkdownCheckbox_withCheckboxPatternInMiddleOfText() {
         let markdown = "foo [ ] bar"
-        let node = Node(markdown: markdown)!
+        let node = Node(markdown: markdown, extensions: [.checkbox])!
         XCTAssertEqual(node.elements.count, 1)
 
         guard case .paragraph(let paragraph)? = node.elements.first else { fatalError() }
@@ -216,7 +216,7 @@ class Tests: XCTestCase {
             - [ ] check one
             - [x] check two
             """
-        let elements = Node(markdown: markdown)!.flatElements
+        let elements = Node(markdown: markdown, extensions: [.checkbox, .mention])!.flatElements
         XCTAssertEqual(elements.count, 7)
 
         guard case .heading(let h1, let l1) = elements[0] else { fatalError() }
@@ -277,7 +277,7 @@ class Tests: XCTestCase {
           - [ ] not checked
           - [x] checked
           """
-        let elements = Node(markdown: markdown)!.flatElements
+        let elements = Node(markdown: markdown, extensions: [.checkbox])!.flatElements
         XCTAssertEqual(elements.count, 2)
 
         guard case .list(let l, _) = elements[1] else { fatalError() }
@@ -306,7 +306,7 @@ class Tests: XCTestCase {
 
     func test_nestedLists() {
         let markdown = "First unordered list item\r\n- Another item\r\n  * Unordered sub-list. \r\n\r\n1. Actual numbers don't matter, just that it's a number\r\n    1. Ordered sub-list\r\n4. And another item.\r\n\r\n* Unordered list can use asterisks\r\n- Or minuses\r\n+ Or pluses\r\n\r\n- [x] And checked boxes\r\n- [ ] Or unchecked"
-        let elements = Node(markdown: markdown)!.flatElements
+        let elements = Node(markdown: markdown, extensions: [.checkbox])!.flatElements
         XCTAssertEqual(elements.count, 7)
 
         guard case .list(let l, _) = elements[6] else { fatalError() }
@@ -352,7 +352,7 @@ class Tests: XCTestCase {
             | --- | --- |
             | baz | bim |
             """
-        let elements = Node(markdown: markdown)!.flatElements
+        let elements = Node(markdown: markdown, extensions: [.table])!.flatElements
         XCTAssertEqual(elements.count, 1)
 
         guard case .table(let rows) = elements[0] else { fatalError() }
@@ -395,20 +395,20 @@ class Tests: XCTestCase {
 
     func testRenderHTML_withMention() {
         let markdown = "Mentioning @user bla bla"
-        let html = Node(markdown: markdown)!.html
+        let html = Node(markdown: markdown, extensions: [.mention])!.html
         XCTAssertEqual(html, "<p>Mentioning <a href=\"https://github.com/user\">@user</a> bla bla</p>\n")
     }
 
     func testRenderEmoji() {
         let markdown = "This is :fire: woo"
-        let html = Node(markdown: markdown)!.html
+        let html = Node(markdown: markdown, extensions: [.emoji])!.html
 
       XCTAssertEqual(html, "<p>This is 🔥 woo</p>\n")
     }
 
     func testRenderEmoji_withDifferentEmoji() {
         let markdown = "Tropical :palm_tree:"
-        let html = Node(markdown: markdown)!.html
+        let html = Node(markdown: markdown, extensions: [.emoji])!.html
 
         XCTAssertEqual(html, "<p>Tropical 🌴</p>\n")
     }
@@ -448,7 +448,7 @@ class Tests: XCTestCase {
             - [ ] One
             - [x] Two
             """
-        let html = Node(markdown: markdown)!.html
+        let html = Node(markdown: markdown, extensions: [.checkbox])!.html
         let expected = """
             <ul>
             <li class="task-list-item"><input type="checkbox" disabled /> One</li>

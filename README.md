@@ -30,18 +30,18 @@ let markdownText = """
 """
 
 // List of markdown options
-var options: [MarkdownOptions] = [
+var options: [MarkdownOption] = [
   .footnotes // Footnote syntax
 ]
 
 // List of markdown extensions
-var extensions: [MarkdownExtensions] = [
-  .emoji, // GitHub emojis
-  .table, // Tables
-  .autolink, // Autolink URLs
-  .mention, // GitHub @ mentions
-  .checkbox, // Checkboxes
-  .wikilink, // WikiLinks
+var extensions: [MarkdownExtension] = [
+  .emoji,        // GitHub emojis
+  .table,        // Tables
+  .autolink,     // Autolink URLs
+  .mention,      // GitHub @ mentions
+  .checkbox,     // Checkboxes
+  .wikilink,     // WikiLinks
   .strikethrough // Strikethrough
 ]
 

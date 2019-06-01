@@ -35,35 +35,18 @@ extension String {
     }
 }
 
-public struct MarkdownOptions: OptionSet {
+public struct MarkdownOption: OptionSet {
   public let rawValue: Int32
 
   public init(rawValue: Int32) {
     self.rawValue = rawValue
   }
 
-  public static let footnotes = MarkdownOptions(rawValue: CMARK_OPT_FOOTNOTES)
+  public static let footnotes = MarkdownOption(rawValue: CMARK_OPT_FOOTNOTES)
 }
 
-public struct MarkdownExtensions: OptionSet {
-  public let rawValue: Int32
-
-  public init(rawValue: Int32) {
-    self.rawValue = rawValue
-  }
-
-  public static let emoji = MarkdownExtensions(rawValue: 1 << 0)
-  public static let table = MarkdownExtensions(rawValue: 1 << 1)
-  public static let mention = MarkdownExtensions(rawValue: 1 << 2)
-  public static let checkbox = MarkdownExtensions(rawValue: 1 << 3)
-  public static let wikilink = MarkdownExtensions(rawValue: 1 << 4)
-  public static let autolink = MarkdownExtensions(rawValue: 1 << 5)
-  public static let strikethrough = MarkdownExtensions(rawValue: 1 << 6)
-
-  public static let all: [MarkdownExtensions] = [
-    .emoji, .table, .mention, .wikilink,
-    .checkbox, .autolink, .strikethrough
-  ]
+public enum MarkdownExtension: String, CaseIterable {
+  case emoji, table, mention, checkbox, wikilink, autolink, strikethrough
 }
 
 /// A node in a Markdown document.
@@ -79,8 +62,8 @@ public class Node: CustomStringConvertible {
 
     public init?(
       markdown: String,
-      options: [MarkdownOptions] = [],
-      extensions: [MarkdownExtensions] = MarkdownExtensions.all
+      options: [MarkdownOption] = [],
+      extensions: [MarkdownExtension] = []
     ) {
         core_extensions_ensure_registered()
 
@@ -91,33 +74,9 @@ public class Node: CustomStringConvertible {
         guard let parser = cmark_parser_new(parserOptions) else { return nil }
         defer { cmark_parser_free(parser) }
 
-        if extensions.contains(.table), let ext = cmark_find_syntax_extension("table") {
-            cmark_parser_attach_syntax_extension(parser, ext)
-        }
-
-        if extensions.contains(.autolink), let ext = cmark_find_syntax_extension("autolink") {
-            cmark_parser_attach_syntax_extension(parser, ext)
-        }
-
-        if extensions.contains(.strikethrough), let ext = cmark_find_syntax_extension("strikethrough") {
-            cmark_parser_attach_syntax_extension(parser, ext)
-        }
-
-        if extensions.contains(.mention), let ext = cmark_find_syntax_extension("mention") {
-            cmark_parser_attach_syntax_extension(parser, ext)
-        }
-
-        if extensions.contains(.checkbox), let ext = cmark_find_syntax_extension("checkbox") {
-            cmark_parser_attach_syntax_extension(parser, ext)
-        }
-
-        if extensions.contains(.emoji), let ext = cmark_find_syntax_extension("emoji") {
-            cmark_parser_attach_syntax_extension(parser, ext)
-        }
-
-        if extensions.contains(.wikilink), let ext = cmark_find_syntax_extension("wikilink") {
-            cmark_parser_attach_syntax_extension(parser, ext)
-        }
+        extensions
+            .compactMap { cmark_find_syntax_extension($0.rawValue) }
+            .forEach { cmark_parser_attach_syntax_extension(parser, $0) }
 
         cmark_parser_feed(parser, markdown, markdown.utf8.count)
         guard let node = cmark_parser_finish(parser) else { return nil }
