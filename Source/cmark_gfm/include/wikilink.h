@@ -1,7 +1,7 @@
 #ifndef WIKILINK_H
 #define WIKILINK_H
 
-#include "core-extensions.h"
+#include "cmark-gfm-core-extensions.h"
 
 cmark_syntax_extension *create_wikilink_extension(void);
 

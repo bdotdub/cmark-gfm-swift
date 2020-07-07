@@ -28,9 +28,6 @@ public enum Inline {
     case link(children: [Inline], title: String?, url: String?)
     case image(children: [Inline], title: String?, url: String?)
     case strikethrough(children: [Inline])
-    case mention(login: String)
-    case checkbox(checked: Bool, originalRange: NSRange)
-    case emoji(emoji: String)
 }
 
 enum InlineType: String {
@@ -45,9 +42,6 @@ enum InlineType: String {
     case strong
     case text
     case strikethrough
-    case mention
-    case checkbox
-    case emoji
 }
 
 extension Inline: ExpressibleByStringLiteral {
@@ -125,12 +119,6 @@ extension Inline {
             self = .image(children: inlineChildren(), title: node.title, url: node.urlString)
         case .strikethrough:
             self = .strikethrough(children: inlineChildren())
-        case .mention:
-            self = .mention(login: node.login ?? "")
-        case .emoji:
-          self = .emoji(emoji: node.literal!)
-        case .checkbox:
-            self = .checkbox(checked: node.checked, originalRange: node.checkedRange)
         }
     }
 }
@@ -175,7 +163,7 @@ extension Block {
 extension Node {
     var listItem: [Block]? {
         switch type {
-        case CMARK_NODE_ITEM, CMARK_NODE_CHECKBOX_ITEM:
+        case CMARK_NODE_ITEM:
             return children.compactMap(Block.init)
         default:
             return nil

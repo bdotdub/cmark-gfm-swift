@@ -28,12 +28,6 @@ extension Inline {
             return .link(children: children.compactMap { $0.textElement }, title: title, url: url)
         case .strikethrough(let children):
             return .strikethrough(children: children.compactMap { $0.textElement })
-        case .mention(let login):
-            return .mention(login: login)
-        case .checkbox(let checked, let originalRange):
-            return .checkbox(checked: checked, originalRange: originalRange)
-        case .emoji(let emoji):
-          return .emoji(emoji: emoji)
         case .image, .html:
             return nil
         }
