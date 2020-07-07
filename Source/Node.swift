@@ -46,7 +46,7 @@ public struct MarkdownOption: OptionSet {
 }
 
 public enum MarkdownExtension: String, CaseIterable {
-  case emoji, table, mention, checkbox, wikilink, autolink, strikethrough
+  case emoji, table, mention, tasklist, wikilink, autolink, strikethrough
 }
 
 /// A node in a Markdown document.
@@ -65,7 +65,7 @@ public class Node: CustomStringConvertible {
       options: [MarkdownOption] = [],
       extensions: [MarkdownExtension] = []
     ) {
-        core_extensions_ensure_registered()
+        cmark_gfm_core_extensions_ensure_registered()
 
         var parserOptions = options.reduce(CMARK_OPT_DEFAULT, { (acc, op) in
             acc | op.rawValue
@@ -122,21 +122,6 @@ public class Node: CustomStringConvertible {
         set { cmark_node_set_heading_level(node, Int32(newValue)) }
     }
 
-    var login: String? {
-        return String(unsafeCString: cmark_node_get_mention_login(node))
-    }
-
-    var checked: Bool {
-        return cmark_node_get_checkbox_checked(node) == 1
-    }
-
-    var checkedRange: NSRange {
-        return NSRange(
-            location: Int(cmark_node_get_checkbox_location(node)),
-            length: Int(cmark_node_get_checkbox_length(node))
-        )
-    }
-    
     var fenceInfo: String? {
         get {
             return String(unsafeCString: cmark_node_get_fence_info(node)) }
