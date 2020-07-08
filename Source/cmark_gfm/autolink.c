@@ -246,6 +246,12 @@ static cmark_node *url_match(cmark_parser *parser, cmark_node *parent,
   text->as.literal = url;
   cmark_node_append_child(node, text);
 
+  node->start_line = text->start_line =
+    node->end_line = text->end_line = cmark_inline_parser_get_line(inline_parser);
+
+  node->start_column = text->start_column = max_rewind - rewind;
+    node->end_column = text->end_column = cmark_inline_parser_get_column(inline_parser) - 1;
+
   return node;
 }
 

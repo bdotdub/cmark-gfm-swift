@@ -452,10 +452,10 @@ class Tests: XCTestCase {
 
         a [[wikilink|./something]]
 
-        [some other link](https://google.com)
+        [some other link](https://google.com) and then an https://autolink.com and another www.autolink.com
         """
 
-        let node = Node(markdown: markdown, extensions: [.tasklist, .wikilink])!
+        let node = Node(markdown: markdown, extensions: [.autolink, .tasklist, .wikilink])!
 
         // Paragraph
         let paragraphNode = node.children[0]
@@ -506,6 +506,20 @@ class Tests: XCTestCase {
         XCTAssertEqual(linkText.start.column, 2)
         XCTAssertEqual(linkText.end.line, 8)
         XCTAssertEqual(linkText.end.column, 16)
+
+        // Autolink (URL)
+        let autolinkURL = node.children[3].children[2]
+        XCTAssertEqual(autolinkURL.start.line, 8)
+        XCTAssertEqual(autolinkURL.start.column, 50)
+        XCTAssertEqual(autolinkURL.end.line, 8)
+        XCTAssertEqual(autolinkURL.end.column, 70)
+
+        // Autolink (www)
+        let autolinkWWW = node.children[3].children[4]
+        XCTAssertEqual(autolinkWWW.start.line, 8)
+        XCTAssertEqual(autolinkWWW.start.column, 83)
+        XCTAssertEqual(autolinkWWW.end.line, 8)
+        XCTAssertEqual(autolinkWWW.end.column, 99)
     }
 
 }
