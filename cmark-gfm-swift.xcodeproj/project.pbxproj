@@ -51,15 +51,11 @@
 		29C28E042070A5EF002C19F7 /* scanners.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC02070A5EF002C19F7 /* scanners.h */; };
 		29C28E052070A5EF002C19F7 /* libcmark_gfm.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC12070A5EF002C19F7 /* libcmark_gfm.h */; };
 		29C28E062070A5EF002C19F7 /* node.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC22070A5EF002C19F7 /* node.h */; };
-		29C28E072070A5EF002C19F7 /* core-extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC32070A5EF002C19F7 /* core-extensions.h */; };
 		29C28E082070A5EF002C19F7 /* registry.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC42070A5EF002C19F7 /* registry.h */; };
-		29C28E092070A5EF002C19F7 /* cmark_version.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC52070A5EF002C19F7 /* cmark_version.h */; };
 		29C28E0A2070A5EF002C19F7 /* autolink.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC62070A5EF002C19F7 /* autolink.h */; };
 		29C28E0B2070A5EF002C19F7 /* cmark_ctype.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC72070A5EF002C19F7 /* cmark_ctype.h */; };
 		29C28E0C2070A5EF002C19F7 /* buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC82070A5EF002C19F7 /* buffer.h */; };
-		29C28E0D2070A5EF002C19F7 /* cmark.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DC92070A5EF002C19F7 /* cmark.h */; };
 		29C28E0E2070A5EF002C19F7 /* strikethrough.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DCA2070A5EF002C19F7 /* strikethrough.h */; };
-		29C28E0F2070A5EF002C19F7 /* cmark_extension_api.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DCB2070A5EF002C19F7 /* cmark_extension_api.h */; };
 		29C28E102070A5EF002C19F7 /* syntax_extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DCC2070A5EF002C19F7 /* syntax_extension.h */; };
 		29C28E112070A5EF002C19F7 /* inlines.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DCD2070A5EF002C19F7 /* inlines.h */; };
 		29C28E122070A5EF002C19F7 /* table.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28DCE2070A5EF002C19F7 /* table.h */; };
@@ -87,16 +83,18 @@
 		29C28E282070A5EF002C19F7 /* registry.c in Sources */ = {isa = PBXBuildFile; fileRef = 29C28DE52070A5EF002C19F7 /* registry.c */; };
 		29C28E292070A5EF002C19F7 /* node.c in Sources */ = {isa = PBXBuildFile; fileRef = 29C28DE62070A5EF002C19F7 /* node.c */; };
 		29C28E2A2070A5EF002C19F7 /* core-extensions.c in Sources */ = {isa = PBXBuildFile; fileRef = 29C28DE72070A5EF002C19F7 /* core-extensions.c */; };
-		29C28E2D2070A6B2002C19F7 /* checkbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28E2B2070A6B1002C19F7 /* checkbox.h */; };
-		29C28E2E2070A6B2002C19F7 /* mention.h in Headers */ = {isa = PBXBuildFile; fileRef = 29C28E2C2070A6B2002C19F7 /* mention.h */; };
-		29C28E312070A6B9002C19F7 /* mention.c in Sources */ = {isa = PBXBuildFile; fileRef = 29C28E2F2070A6B9002C19F7 /* mention.c */; };
-		29C28E322070A6B9002C19F7 /* checkbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 29C28E302070A6B9002C19F7 /* checkbox.c */; };
 		29C28E3C2070A6F4002C19F7 /* cmark_gfm_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2911C5612070879600732441 /* cmark_gfm_swift.framework */; };
 		29C28E432070A70F002C19F7 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C28E422070A70F002C19F7 /* Tests.swift */; };
-		A14D7F392230781400856121 /* emoji_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A14D7F372230781400856121 /* emoji_list.h */; };
+		73D613EB24B4B2A6008F6D9D /* cmark-gfm_version.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D613E624B4B2A5008F6D9D /* cmark-gfm_version.h */; };
+		73D613EC24B4B2A6008F6D9D /* cmark-gfm.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D613E724B4B2A5008F6D9D /* cmark-gfm.h */; };
+		73D613ED24B4B2A6008F6D9D /* cmark-gfm_export.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D613E824B4B2A5008F6D9D /* cmark-gfm_export.h */; };
+		73D613EE24B4B2A6008F6D9D /* cmark-gfm-extension_api.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D613E924B4B2A5008F6D9D /* cmark-gfm-extension_api.h */; };
+		73D613EF24B4B2A6008F6D9D /* cmark-gfm-core-extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D613EA24B4B2A6008F6D9D /* cmark-gfm-core-extensions.h */; };
+		73D613F124B4B3E7008F6D9D /* cmark-gfm-extensions_export.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D613F024B4B3E7008F6D9D /* cmark-gfm-extensions_export.h */; };
+		73D613F324B4B3F9008F6D9D /* tasklist.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D613F224B4B3F9008F6D9D /* tasklist.h */; };
+		73D613F524B4B40A008F6D9D /* tasklist.c in Sources */ = {isa = PBXBuildFile; fileRef = 73D613F424B4B40A008F6D9D /* tasklist.c */; };
 		A163201B2235F6A3005FC8E0 /* wikilink.h in Headers */ = {isa = PBXBuildFile; fileRef = A16320192235F6A3005FC8E0 /* wikilink.h */; };
 		A163201C2235F6A3005FC8E0 /* wikilink.c in Sources */ = {isa = PBXBuildFile; fileRef = A163201A2235F6A3005FC8E0 /* wikilink.c */; };
-		A178A48E222FD4240064C487 /* emoji.c in Sources */ = {isa = PBXBuildFile; fileRef = A178A48D222FD4240064C487 /* emoji.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,15 +154,11 @@
 		29C28DC02070A5EF002C19F7 /* scanners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scanners.h; sourceTree = "<group>"; };
 		29C28DC12070A5EF002C19F7 /* libcmark_gfm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libcmark_gfm.h; sourceTree = "<group>"; };
 		29C28DC22070A5EF002C19F7 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
-		29C28DC32070A5EF002C19F7 /* core-extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "core-extensions.h"; sourceTree = "<group>"; };
 		29C28DC42070A5EF002C19F7 /* registry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = registry.h; sourceTree = "<group>"; };
-		29C28DC52070A5EF002C19F7 /* cmark_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmark_version.h; sourceTree = "<group>"; };
 		29C28DC62070A5EF002C19F7 /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
 		29C28DC72070A5EF002C19F7 /* cmark_ctype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmark_ctype.h; sourceTree = "<group>"; };
 		29C28DC82070A5EF002C19F7 /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
-		29C28DC92070A5EF002C19F7 /* cmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmark.h; sourceTree = "<group>"; };
 		29C28DCA2070A5EF002C19F7 /* strikethrough.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strikethrough.h; sourceTree = "<group>"; };
-		29C28DCB2070A5EF002C19F7 /* cmark_extension_api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmark_extension_api.h; sourceTree = "<group>"; };
 		29C28DCC2070A5EF002C19F7 /* syntax_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = syntax_extension.h; sourceTree = "<group>"; };
 		29C28DCD2070A5EF002C19F7 /* inlines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inlines.h; sourceTree = "<group>"; };
 		29C28DCE2070A5EF002C19F7 /* table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = table.h; sourceTree = "<group>"; };
@@ -193,18 +187,19 @@
 		29C28DE52070A5EF002C19F7 /* registry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = registry.c; sourceTree = "<group>"; };
 		29C28DE62070A5EF002C19F7 /* node.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = node.c; sourceTree = "<group>"; };
 		29C28DE72070A5EF002C19F7 /* core-extensions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "core-extensions.c"; sourceTree = "<group>"; };
-		29C28E2B2070A6B1002C19F7 /* checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = checkbox.h; sourceTree = "<group>"; };
-		29C28E2C2070A6B2002C19F7 /* mention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mention.h; sourceTree = "<group>"; };
-		29C28E2F2070A6B9002C19F7 /* mention.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mention.c; sourceTree = "<group>"; };
-		29C28E302070A6B9002C19F7 /* checkbox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = checkbox.c; sourceTree = "<group>"; };
 		29C28E372070A6F4002C19F7 /* cmark_gfm_swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cmark_gfm_swiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C28E3B2070A6F4002C19F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29C28E422070A70F002C19F7 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; tabWidth = 4; };
-		A14D7F372230781400856121 /* emoji_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = emoji_list.h; sourceTree = "<group>"; };
+		73D613E624B4B2A5008F6D9D /* cmark-gfm_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cmark-gfm_version.h"; sourceTree = "<group>"; };
+		73D613E724B4B2A5008F6D9D /* cmark-gfm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cmark-gfm.h"; sourceTree = "<group>"; };
+		73D613E824B4B2A5008F6D9D /* cmark-gfm_export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cmark-gfm_export.h"; sourceTree = "<group>"; };
+		73D613E924B4B2A5008F6D9D /* cmark-gfm-extension_api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cmark-gfm-extension_api.h"; sourceTree = "<group>"; };
+		73D613EA24B4B2A6008F6D9D /* cmark-gfm-core-extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cmark-gfm-core-extensions.h"; sourceTree = "<group>"; };
+		73D613F024B4B3E7008F6D9D /* cmark-gfm-extensions_export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cmark-gfm-extensions_export.h"; sourceTree = "<group>"; };
+		73D613F224B4B3F9008F6D9D /* tasklist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tasklist.h; sourceTree = "<group>"; };
+		73D613F424B4B40A008F6D9D /* tasklist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tasklist.c; sourceTree = "<group>"; };
 		A16320192235F6A3005FC8E0 /* wikilink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wikilink.h; sourceTree = "<group>"; };
 		A163201A2235F6A3005FC8E0 /* wikilink.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = wikilink.c; sourceTree = "<group>"; };
-		A178A48C222FD3EE0064C487 /* emoji.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = emoji.h; sourceTree = "<group>"; };
-		A178A48D222FD4240064C487 /* emoji.c */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = emoji.c; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,12 +269,10 @@
 				29C28DAA2070A5EF002C19F7 /* blocks.c */,
 				29C28DA82070A5EF002C19F7 /* buffer.c */,
 				29C28DB12070A5EF002C19F7 /* case_fold_switch.inc */,
-				29C28E302070A6B9002C19F7 /* checkbox.c */,
 				29C28DAB2070A5EF002C19F7 /* cmark_ctype.c */,
 				29C28DA52070A5EF002C19F7 /* cmark.c */,
 				29C28DDD2070A5EF002C19F7 /* commonmark.c */,
 				29C28DE72070A5EF002C19F7 /* core-extensions.c */,
-				A178A48D222FD4240064C487 /* emoji.c */,
 				29C28DB22070A5EF002C19F7 /* entities.inc */,
 				29C28DB32070A5EF002C19F7 /* ext_scanners.c */,
 				29C28DE32070A5EF002C19F7 /* footnotes.c */,
@@ -294,7 +287,6 @@
 				29C28DDC2070A5EF002C19F7 /* linked_list.c */,
 				29C28DA72070A5EF002C19F7 /* man.c */,
 				29C28DDE2070A5EF002C19F7 /* map.c */,
-				29C28E2F2070A6B9002C19F7 /* mention.c */,
 				29C28DE22070A5EF002C19F7 /* module.modulemap */,
 				29C28DE62070A5EF002C19F7 /* node.c */,
 				29C28DD62070A5EF002C19F7 /* plaintext.c */,
@@ -306,6 +298,7 @@
 				29C28DA62070A5EF002C19F7 /* scanners.re */,
 				29C28DA42070A5EF002C19F7 /* strikethrough.c */,
 				29C28DB02070A5EF002C19F7 /* syntax_extension.c */,
+				73D613F424B4B40A008F6D9D /* tasklist.c */,
 				29C28DAC2070A5EF002C19F7 /* table.c */,
 				29C28DB42070A5EF002C19F7 /* tagfilter.c */,
 				29C28DD72070A5EF002C19F7 /* utf8.c */,
@@ -318,20 +311,19 @@
 		29C28DB62070A5EF002C19F7 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				73D613F024B4B3E7008F6D9D /* cmark-gfm-extensions_export.h */,
+				73D613E824B4B2A5008F6D9D /* cmark-gfm_export.h */,
+				73D613E624B4B2A5008F6D9D /* cmark-gfm_version.h */,
+				73D613EA24B4B2A6008F6D9D /* cmark-gfm-core-extensions.h */,
+				73D613E924B4B2A5008F6D9D /* cmark-gfm-extension_api.h */,
+				73D613E724B4B2A5008F6D9D /* cmark-gfm.h */,
 				29C28DC62070A5EF002C19F7 /* autolink.h */,
 				29C28DC82070A5EF002C19F7 /* buffer.h */,
-				29C28E2B2070A6B1002C19F7 /* checkbox.h */,
 				29C28DBD2070A5EF002C19F7 /* chunk.h */,
 				29C28DC72070A5EF002C19F7 /* cmark_ctype.h */,
 				29C28DB82070A5EF002C19F7 /* cmark_export.h */,
-				29C28DCB2070A5EF002C19F7 /* cmark_extension_api.h */,
-				29C28DC52070A5EF002C19F7 /* cmark_version.h */,
-				29C28DC92070A5EF002C19F7 /* cmark.h */,
 				29C28DB72070A5EF002C19F7 /* cmarkextensions_export.h */,
 				29C28DBC2070A5EF002C19F7 /* config.h */,
-				29C28DC32070A5EF002C19F7 /* core-extensions.h */,
-				A14D7F372230781400856121 /* emoji_list.h */,
-				A178A48C222FD3EE0064C487 /* emoji.h */,
 				29C28DD02070A5EF002C19F7 /* ext_scanners.h */,
 				29C28DBE2070A5EF002C19F7 /* footnotes.h */,
 				29C28DD12070A5EF002C19F7 /* houdini.h */,
@@ -340,7 +332,6 @@
 				29C28DD22070A5EF002C19F7 /* iterator.h */,
 				29C28DC12070A5EF002C19F7 /* libcmark_gfm.h */,
 				29C28DBB2070A5EF002C19F7 /* map.h */,
-				29C28E2C2070A6B2002C19F7 /* mention.h */,
 				29C28DC22070A5EF002C19F7 /* node.h */,
 				29C28DBF2070A5EF002C19F7 /* parser.h */,
 				29C28DBA2070A5EF002C19F7 /* plugin.h */,
@@ -351,6 +342,7 @@
 				29C28DCA2070A5EF002C19F7 /* strikethrough.h */,
 				29C28DCC2070A5EF002C19F7 /* syntax_extension.h */,
 				29C28DCE2070A5EF002C19F7 /* table.h */,
+				73D613F224B4B3F9008F6D9D /* tasklist.h */,
 				29C28DCF2070A5EF002C19F7 /* tagfilter.h */,
 				29C28DD32070A5EF002C19F7 /* utf8.h */,
 				A16320192235F6A3005FC8E0 /* wikilink.h */,
@@ -375,40 +367,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				29C28E062070A5EF002C19F7 /* node.h in Headers */,
+				73D613EF24B4B2A6008F6D9D /* cmark-gfm-core-extensions.h in Headers */,
 				29C28DFE2070A5EF002C19F7 /* plugin.h in Headers */,
+				73D613ED24B4B2A6008F6D9D /* cmark-gfm_export.h in Headers */,
 				29C28DFC2070A5EF002C19F7 /* cmark_export.h in Headers */,
 				29C28E132070A5EF002C19F7 /* tagfilter.h in Headers */,
 				29C28E102070A5EF002C19F7 /* syntax_extension.h in Headers */,
-				29C28E0D2070A5EF002C19F7 /* cmark.h in Headers */,
-				29C28E0F2070A5EF002C19F7 /* cmark_extension_api.h in Headers */,
 				29C28E142070A5EF002C19F7 /* ext_scanners.h in Headers */,
 				29C28E052070A5EF002C19F7 /* libcmark_gfm.h in Headers */,
-				29C28E2D2070A6B2002C19F7 /* checkbox.h in Headers */,
 				29C28DFD2070A5EF002C19F7 /* html.h in Headers */,
 				29C28E032070A5EF002C19F7 /* parser.h in Headers */,
 				29C28DFF2070A5EF002C19F7 /* map.h in Headers */,
 				29C286F8207087CF002C19F7 /* cmark-gfm-swift.h in Headers */,
-				29C28E092070A5EF002C19F7 /* cmark_version.h in Headers */,
 				29C28DFB2070A5EF002C19F7 /* cmarkextensions_export.h in Headers */,
 				29C28E082070A5EF002C19F7 /* registry.h in Headers */,
-				29C28E072070A5EF002C19F7 /* core-extensions.h in Headers */,
 				A163201B2235F6A3005FC8E0 /* wikilink.h in Headers */,
 				29C28E122070A5EF002C19F7 /* table.h in Headers */,
-				A14D7F392230781400856121 /* emoji_list.h in Headers */,
+				73D613EC24B4B2A6008F6D9D /* cmark-gfm.h in Headers */,
 				29C28E012070A5EF002C19F7 /* chunk.h in Headers */,
 				29C28E002070A5EF002C19F7 /* config.h in Headers */,
 				29C28E182070A5EF002C19F7 /* references.h in Headers */,
 				29C28E112070A5EF002C19F7 /* inlines.h in Headers */,
-				29C28E2E2070A6B2002C19F7 /* mention.h in Headers */,
 				29C28E022070A5EF002C19F7 /* footnotes.h in Headers */,
+				73D613EE24B4B2A6008F6D9D /* cmark-gfm-extension_api.h in Headers */,
 				29C28E0E2070A5EF002C19F7 /* strikethrough.h in Headers */,
 				29C28E0B2070A5EF002C19F7 /* cmark_ctype.h in Headers */,
 				29C28E042070A5EF002C19F7 /* scanners.h in Headers */,
 				29C28E172070A5EF002C19F7 /* utf8.h in Headers */,
+				73D613F324B4B3F9008F6D9D /* tasklist.h in Headers */,
+				73D613EB24B4B2A6008F6D9D /* cmark-gfm_version.h in Headers */,
 				29C28E162070A5EF002C19F7 /* iterator.h in Headers */,
 				29C28E0A2070A5EF002C19F7 /* autolink.h in Headers */,
 				29C28E0C2070A5EF002C19F7 /* buffer.h in Headers */,
 				29C28E192070A5EF002C19F7 /* render.h in Headers */,
+				73D613F124B4B3E7008F6D9D /* cmark-gfm-extensions_export.h in Headers */,
 				29C28E152070A5EF002C19F7 /* houdini.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,7 +516,6 @@
 				29C28DF32070A5EF002C19F7 /* latex.c in Sources */,
 				29C28DEC2070A5EF002C19F7 /* man.c in Sources */,
 				29C28E1C2070A5EF002C19F7 /* references.c in Sources */,
-				A178A48E222FD4240064C487 /* emoji.c in Sources */,
 				29C28DF02070A5EF002C19F7 /* cmark_ctype.c in Sources */,
 				29C286F7207087CF002C19F7 /* Node+Elements.swift in Sources */,
 				29C28E252070A5EF002C19F7 /* scanners.c in Sources */,
@@ -542,6 +533,7 @@
 				29C28E1D2070A5EF002C19F7 /* render.c in Sources */,
 				29C28E272070A5EF002C19F7 /* houdini_html_u.c in Sources */,
 				29C28DF12070A5EF002C19F7 /* table.c in Sources */,
+				73D613F524B4B40A008F6D9D /* tasklist.c in Sources */,
 				29C28E232070A5EF002C19F7 /* html.c in Sources */,
 				29C28DF72070A5EF002C19F7 /* entities.inc in Sources */,
 				29C286FB207087CF002C19F7 /* Block+TextElement.swift in Sources */,
@@ -553,7 +545,6 @@
 				29C28E222070A5EF002C19F7 /* map.c in Sources */,
 				29C28DF52070A5EF002C19F7 /* syntax_extension.c in Sources */,
 				29C286F0207087CF002C19F7 /* ASTOperations.swift in Sources */,
-				29C28E312070A6B9002C19F7 /* mention.c in Sources */,
 				A163201C2235F6A3005FC8E0 /* wikilink.c in Sources */,
 				29C28DF42070A5EF002C19F7 /* houdini_href_e.c in Sources */,
 				29C286EF207087CF002C19F7 /* Element.swift in Sources */,
@@ -563,7 +554,6 @@
 				29C28DEF2070A5EF002C19F7 /* blocks.c in Sources */,
 				29C28E2A2070A5EF002C19F7 /* core-extensions.c in Sources */,
 				29C286FC207087CF002C19F7 /* Node.swift in Sources */,
-				29C28E322070A6B9002C19F7 /* checkbox.c in Sources */,
 				29C28E262070A5EF002C19F7 /* footnotes.c in Sources */,
 				29C28E1B2070A5EF002C19F7 /* utf8.c in Sources */,
 				29C28DE92070A5EF002C19F7 /* strikethrough.c in Sources */,

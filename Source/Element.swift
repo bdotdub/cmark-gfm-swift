@@ -17,4 +17,5 @@ public enum Element {
     case codeBlock(text: String, language: String?)
     case heading(text: TextLine, level: Int)
     case list(items: [[ListElement]], type: ListType)
+    case tasklist(items: [TextLine], checked: Bool)
 }

@@ -29,6 +29,8 @@ extension Block {
             return [.html(text: text)]
         case .list(let items, let type):
             return [.list(items: items.compactMap { $0.listElements(0) }, type: type)]
+        case .tasklist(let items, let checked):
+            return [.tasklist(items: items.flatMap { $0.textElements }, checked: checked)]
         case .paragraph(let text):
             let builder = InlineBuilder(options: options)
             text.forEach { $0.fold(builder: builder) }
@@ -75,7 +77,7 @@ extension Inline {
     func fold(builder: InlineBuilder) {
         switch self {
         case .text, .softBreak, .lineBreak, .code, .emphasis, .strong,
-             .custom, .link, .strikethrough, .mention, .checkbox, .emoji:
+             .custom, .link, .strikethrough:
             if let el = textElement {
                 builder.text.append(el)
             }
