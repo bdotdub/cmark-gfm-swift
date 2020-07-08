@@ -46,7 +46,7 @@ public struct MarkdownOption: OptionSet {
 }
 
 public enum MarkdownExtension: String, CaseIterable {
-  case emoji, table, mention, tasklist, wikilink, autolink, strikethrough
+  case table, tasklist, wikilink, autolink, strikethrough
 }
 
 /// A node in a Markdown document.
