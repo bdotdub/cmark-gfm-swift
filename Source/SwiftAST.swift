@@ -193,25 +193,6 @@ extension Node {
     }
 }
 
-//extension Node {
-//    convenience init(type: cmark_node_type, literal: String) {
-//        self.init(type: type)
-//        self.literal = literal
-//    }
-//    convenience init(type: cmark_node_type, blocks: [Block]) {
-//        self.init(type: type, children: blocks.map(Node.init))
-//    }
-//    convenience init(type: cmark_node_type, elements: [Inline]) {
-//        self.init(type: type, children: elements.map(Node.init))
-//    }
-//}
-
-//extension Node {
-//    public convenience init(blocks: [Block]) {
-//        self.init(type: CMARK_NODE_DOCUMENT, blocks: blocks)
-//    }
-//}
-
 extension Node {
     /// The abstract syntax tree representation of a Markdown document.
     /// - returns: an array of block-level elements.

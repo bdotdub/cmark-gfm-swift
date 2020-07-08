@@ -49,6 +49,12 @@ public enum MarkdownExtension: String, CaseIterable {
   case table, tasklist, wikilink, autolink, strikethrough
 }
 
+/// A position in a Markdown document. Note that both `line` and `column` are 1-based.
+public struct Position {
+    public var line: Int32
+    public var column: Int32
+}
+
 /// A node in a Markdown document.
 ///
 /// Can represent a full Markdown document (i.e. the document's root node) or
@@ -102,7 +108,7 @@ public class Node: CustomStringConvertible {
         set { cmark_node_set_list_start(node, Int32(newValue)) }
     }
     
-    var typeString: String {
+    public var typeString: String {
         return String(cString: cmark_node_get_type_string(node)!)
     }
     
@@ -116,7 +122,15 @@ public class Node: CustomStringConvertible {
           }
         }
     }
-    
+
+    public var start: Position {
+        return Position(line: cmark_node_get_start_line(node), column: cmark_node_get_start_column(node))
+    }
+
+    public var end: Position {
+        return Position(line: cmark_node_get_end_line(node), column: cmark_node_get_end_column(node))
+    }
+
     var headerLevel: Int {
         get { return Int(cmark_node_get_heading_level(node)) }
         set { cmark_node_set_heading_level(node, Int32(newValue)) }
@@ -156,7 +170,7 @@ public class Node: CustomStringConvertible {
         }
     }
     
-    var children: [Node] {
+    public var children: [Node] {
         var result: [Node] = []
         
         var child = cmark_node_first_child(node)

@@ -443,5 +443,64 @@ class Tests: XCTestCase {
         XCTAssertEqual(html, expected)
     }
 
+    func testPosition() {
+        let markdown = """
+        Hello there
+
+        - [ ] Some list
+        - [x] With items
+
+        [[wikilink|./something]]
+
+        [some other link](https://google.com)
+        """
+
+        let node = Node(markdown: markdown, extensions: [.tasklist, .wikilink])!
+
+        // Paragraph
+        let paragraphNode = node.children[0]
+        XCTAssertEqual(paragraphNode.start.line, 1)
+        XCTAssertEqual(paragraphNode.start.column, 1)
+        XCTAssertEqual(paragraphNode.end.line, 1)
+        XCTAssertEqual(paragraphNode.end.column, 11)
+
+        // List
+        let listItem1 = node.children[1]
+        XCTAssertEqual(listItem1.start.line, 3)
+        XCTAssertEqual(listItem1.start.column, 1)
+        XCTAssertEqual(listItem1.end.line, 5)
+        XCTAssertEqual(listItem1.end.column, 0)
+
+        // Task List
+        let taskListItem1 = listItem1.children[0]
+        XCTAssertEqual(taskListItem1.start.line, 3)
+        XCTAssertEqual(taskListItem1.start.column, 1)
+        XCTAssertEqual(taskListItem1.end.line, 3)
+        XCTAssertEqual(taskListItem1.end.column, 15)
+
+        // Task list text
+        let taskListItemText1 = taskListItem1.children[0]
+        XCTAssertEqual(taskListItemText1.start.line, 3)
+        XCTAssertEqual(taskListItemText1.start.column, 7)
+        XCTAssertEqual(taskListItemText1.end.line, 3)
+        XCTAssertEqual(taskListItemText1.end.column, 15)
+
+        // Wikilink (TODO: fix. currently doesn't store posititon)
+
+        // Link
+        let link = node.children[3].children[0]
+        XCTAssertEqual(link.start.line, 8)
+        XCTAssertEqual(link.start.column, 1)
+        XCTAssertEqual(link.end.line, 8)
+        XCTAssertEqual(link.end.column, 37)
+
+        // Link text
+        let linkText = link.children[0]
+        XCTAssertEqual(linkText.start.line, 8)
+        XCTAssertEqual(linkText.start.column, 2)
+        XCTAssertEqual(linkText.end.line, 8)
+        XCTAssertEqual(linkText.end.column, 16)
+    }
+
 }
 
