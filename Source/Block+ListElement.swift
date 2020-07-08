@@ -18,6 +18,8 @@ extension Block {
             return .text(text: [.text(text: literal)])
         case .codeBlock(let text, _):
             return .text(text: [.code(text: text)])
+        case .tasklist(let items, let checked):
+            return .tasklist(children: items.compactMap { $0.listElement(level + 1) }, checked: checked)
         case .list(let items, let type):
             let deeper = level + 1
             return .list(children: items.compactMap { $0.listElements(deeper) }, type: type, level: deeper)

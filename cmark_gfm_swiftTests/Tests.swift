@@ -166,10 +166,11 @@ class Tests: XCTestCase {
 //        XCTAssertEqual(markdown.substring(with: cr2), "[x]")
     }
 */
-/*
-    func test_simpleLists() {
+
+    func test_simpleTaskLists() {
         let markdown = """
           paragraph
+
           - [ ] not checked
           - [x] checked
           """
@@ -181,26 +182,27 @@ class Tests: XCTestCase {
         XCTAssertEqual(l[0].count, 1)
         XCTAssertEqual(l[1].count, 1)
 
-        guard case .text(let t1) = l[0][0] else { fatalError() }
+        // First task list item
+        guard case .tasklist(let tlc1, let checked1) = l[0][0] else { fatalError() }
+        XCTAssertFalse(checked1)
 
-        XCTAssertEqual(t1.count, 2)
+        guard case .text(let tl1) = tlc1[0] else { fatalError() }
+        XCTAssertEqual(tl1.count, 1)
 
-//        guard case let .checkbox(cb1, cr1) = t1[0] else { fatalError() }
-//        XCTAssertFalse(cb1)
-//        XCTAssertEqual(cr1.location, 12)
-//        XCTAssertEqual(cr1.length, 3)
-//        XCTAssertEqual(markdown.substring(with: cr1), "[ ]")
-//
-//        guard case .text(let t2) = l[1][0] else { fatalError() }
-//        XCTAssertEqual(t2.count, 2)
-//
-//        guard case let .checkbox(cb2, cr2) = t2[0] else { fatalError() }
-//        XCTAssertTrue(cb2)
-//        XCTAssertEqual(cr2.location, 30)
-//        XCTAssertEqual(cr2.length, 3)
-//        XCTAssertEqual(markdown.substring(with: cr2), "[x]")
+        guard case .text(let te1) = tl1[0] else { fatalError() }
+        XCTAssertEqual(te1, "not checked")
+
+        // Second task list item
+        guard case .tasklist(let tlc2, let checked2) = l[1][0] else { fatalError() }
+        XCTAssertTrue(checked2)
+
+        guard case .text(let tl2) = tlc2[0] else { fatalError() }
+        XCTAssertEqual(tl2.count, 1)
+
+        guard case .text(let te2) = tl2[0] else { fatalError() }
+        XCTAssertEqual(te2, "checked")
     }
- */
+
 /*
     func test_nestedLists() {
         let markdown = "First unordered list item\r\n- Another item\r\n  * Unordered sub-list. \r\n\r\n1. Actual numbers don't matter, just that it's a number\r\n    1. Ordered sub-list\r\n4. And another item.\r\n\r\n* Unordered list can use asterisks\r\n- Or minuses\r\n+ Or pluses\r\n\r\n- [x] And checked boxes\r\n- [ ] Or unchecked"
@@ -421,6 +423,22 @@ class Tests: XCTestCase {
                     <p>This is a <a href="https://example.com">Normal Link</a></p>
 
                     """
+        XCTAssertEqual(html, expected)
+    }
+
+    func testRenderHTML_withCheckbox() {
+        let markdown = """
+            - [ ] One
+            - [x] Two
+            """
+        let html = Node(markdown: markdown, extensions: [.tasklist])!.html
+        let expected = """
+            <ul>
+            <li><input type="checkbox" disabled="" /> One</li>
+            <li><input type="checkbox" checked="" disabled="" /> Two</li>
+            </ul>
+
+            """
         XCTAssertEqual(html, expected)
     }
 

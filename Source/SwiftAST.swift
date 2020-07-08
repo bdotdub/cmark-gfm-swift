@@ -68,6 +68,7 @@ public enum Block {
     case paragraph(text: [Inline])
     case heading(text: [Inline], level: Int)
     case custom(literal: String)
+    case tasklist(items: [Block], checked: Bool)
     case thematicBreak
     case table(items: [Block])
     case tableHeader(items: [Block])
@@ -87,6 +88,7 @@ enum BlockType: String {
     case table_cell
     case table_header
     case table_row
+    case tasklist
     case thematic_break
 }
 
@@ -156,6 +158,11 @@ extension Block {
             self = .tableRow(items: parseBlockChildren())
         case .table_cell:
             self = .tableCell(items: parseInlineChildren())
+        case .tasklist:
+            self = .tasklist(
+                items: parseBlockChildren(),
+                checked: cmark_gfm_extensions_get_tasklist_item_checked(node.node)
+            )
         }
     }
 }
@@ -164,7 +171,12 @@ extension Node {
     var listItem: [Block]? {
         switch type {
         case CMARK_NODE_ITEM:
-            return children.compactMap(Block.init)
+            switch BlockType(rawValue: typeString) {
+            case .tasklist:
+                return [Block(self)!]
+            default:
+                return children.compactMap(Block.init)
+            }
         default:
             return nil
         }
@@ -217,62 +229,3 @@ func tableOfContents(document: String) -> [Block] {
         }
     }
 }
-
-//extension Node {
-//    convenience init(element: Inline) {
-//        switch element {
-//        case .text(let text):
-//            self.init(type: CMARK_NODE_TEXT, literal: text)
-//        case .emphasis(let children):
-//            self.init(type: CMARK_NODE_EMPH, elements: children)
-//        case .code(let text):
-//            self.init(type: CMARK_NODE_CODE, literal: text)
-//        case .strong(let children):
-//            self.init(type: CMARK_NODE_STRONG, elements: children)
-//        case .html(let text):
-//            self.init(type: CMARK_NODE_HTML_INLINE, literal: text)
-//        case .custom(let literal):
-//            self.init(type: CMARK_NODE_CUSTOM_INLINE, literal: literal)
-//        case let .link(children, title, url):
-//            self.init(type: CMARK_NODE_LINK, elements: children)
-//            self.title = title
-//            self.urlString = url
-//        case let .image(children, title, url):
-//            self.init(type: CMARK_NODE_IMAGE, elements: children)
-//            self.title = title
-//            urlString = url
-//        case .softBreak:
-//            self.init(type: CMARK_NODE_SOFTBREAK)
-//        case .lineBreak:
-//            self.init(type: CMARK_NODE_LINEBREAK)
-//        }
-//    }
-//}
-//
-//extension Node {
-//    convenience init(block: Block) {
-//        switch block {
-//        case .paragraph(let children):
-//            self.init(type: CMARK_NODE_PARAGRAPH, elements: children)
-//        case let .list(items, type):
-//            let listItems = items.map { Node(type: CMARK_NODE_ITEM, blocks: $0) }
-//            self.init(type: CMARK_NODE_LIST, children: listItems)
-//            listType = type == .Unordered ? CMARK_BULLET_LIST : CMARK_ORDERED_LIST
-//        case .blockQuote(let items):
-//            self.init(type: CMARK_NODE_BLOCK_QUOTE, blocks: items)
-//        case let .codeBlock(text, language):
-//            self.init(type: CMARK_NODE_CODE_BLOCK, literal: text)
-//            fenceInfo = language
-//        case .html(let text):
-//            self.init(type: CMARK_NODE_HTML_BLOCK, literal: text)
-//        case .custom(let literal):
-//            self.init(type: CMARK_NODE_CUSTOM_BLOCK, literal: literal)
-//        case let .heading(text, level):
-//            self.init(type: CMARK_NODE_HEADING, elements: text)
-//            headerLevel = level
-//        case .thematicBreak:
-//            self.init(type: CMARK_NODE_THEMATIC_BREAK)
-//        }
-//    }
-//}
-
