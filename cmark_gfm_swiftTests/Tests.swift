@@ -450,7 +450,7 @@ class Tests: XCTestCase {
         - [ ] Some list
         - [x] With items
 
-        [[wikilink|./something]]
+        a [[wikilink|./something]]
 
         [some other link](https://google.com)
         """
@@ -485,7 +485,13 @@ class Tests: XCTestCase {
         XCTAssertEqual(taskListItemText1.end.line, 3)
         XCTAssertEqual(taskListItemText1.end.column, 15)
 
-        // Wikilink (TODO: fix. currently doesn't store posititon)
+        // Wikilink
+        let wikilink = node.children[2].children[1]
+        print(wikilink)
+        XCTAssertEqual(wikilink.start.line,6)
+        XCTAssertEqual(wikilink.start.column, 3)
+        XCTAssertEqual(wikilink.end.line, 6)
+        XCTAssertEqual(wikilink.end.column, 27)
 
         // Link
         let link = node.children[3].children[0]
