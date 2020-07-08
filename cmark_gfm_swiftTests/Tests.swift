@@ -96,7 +96,7 @@ class Tests: XCTestCase {
         let blocks = rootNode.elements
         XCTAssertEqual(blocks.count, 1)
     }
-/*
+
     func testKitchenSync() {
         let markdown = """
             # Heading
@@ -111,7 +111,7 @@ class Tests: XCTestCase {
             - [ ] check one
             - [x] check two
             """
-        let elements = Node(markdown: markdown, extensions: [.checkbox, .mention])!.flatElements
+        let elements = Node(markdown: markdown, extensions: [.tasklist])!.flatElements
         XCTAssertEqual(elements.count, 7)
 
         guard case .heading(let h1, let l1) = elements[0] else { fatalError() }
@@ -123,7 +123,7 @@ class Tests: XCTestCase {
         XCTAssertEqual(l2, 2)
 
         guard case .text(let t1) = elements[2] else { fatalError() }
-        XCTAssertEqual(t1.string, "Lorem ipsum dolor sit amet.")
+        XCTAssertEqual(t1.string, "Lorem @ipsum dolor sit amet.")
 
         guard case let .list(i1, _) = elements[3] else { fatalError() }
         XCTAssertEqual(i1.count, 2)
@@ -147,25 +147,26 @@ class Tests: XCTestCase {
         XCTAssertEqual(i2[0].count, 1)
         XCTAssertEqual(i2[1].count, 1)
 
-        guard case .text(let ct1) = i2[0][0] else { fatalError() }
-        XCTAssertEqual(ct1.count, 2)
+        // First task list item
+        guard case .tasklist(let tlc1, let checked1) = i2[0][0] else { fatalError() }
+        XCTAssertFalse(checked1)
 
-//        guard case let .checkbox(cb1, cr1) = ct1[0] else { fatalError() }
-//        XCTAssertFalse(cb1)
-//        XCTAssertEqual(cr1.location, 155)
-//        XCTAssertEqual(cr1.length, 3)
-//        XCTAssertEqual(markdown.substring(with: cr1), "[ ]")
-//
-//        guard case .text(let ct2) = i2[1][0] else { fatalError() }
-//        XCTAssertEqual(ct2.count, 2)
-//
-//        guard case let .checkbox(cb2, cr2) = ct2[0] else { fatalError() }
-//        XCTAssertTrue(cb2)
-//        XCTAssertEqual(cr2.location, 171)
-//        XCTAssertEqual(cr2.length, 3)
-//        XCTAssertEqual(markdown.substring(with: cr2), "[x]")
+        guard case .text(let tl1) = tlc1[0] else { fatalError() }
+        XCTAssertEqual(tl1.count, 1)
+
+        guard case .text(let te1) = tl1[0] else { fatalError() }
+        XCTAssertEqual(te1, "check one")
+
+        // Second task list item
+        guard case .tasklist(let tlc2, let checked2) = i2[1][0] else { fatalError() }
+        XCTAssertTrue(checked2)
+
+        guard case .text(let tl2) = tlc2[0] else { fatalError() }
+        XCTAssertEqual(tl2.count, 1)
+
+        guard case .text(let te2) = tl2[0] else { fatalError() }
+        XCTAssertEqual(te2, "check two")
     }
-*/
 
     func test_simpleTaskLists() {
         let markdown = """
@@ -203,10 +204,10 @@ class Tests: XCTestCase {
         XCTAssertEqual(te2, "checked")
     }
 
-/*
+
     func test_nestedLists() {
         let markdown = "First unordered list item\r\n- Another item\r\n  * Unordered sub-list. \r\n\r\n1. Actual numbers don't matter, just that it's a number\r\n    1. Ordered sub-list\r\n4. And another item.\r\n\r\n* Unordered list can use asterisks\r\n- Or minuses\r\n+ Or pluses\r\n\r\n- [x] And checked boxes\r\n- [ ] Or unchecked"
-        let elements = Node(markdown: markdown, extensions: [.checkbox])!.flatElements
+        let elements = Node(markdown: markdown, extensions: [.tasklist])!.flatElements
         XCTAssertEqual(elements.count, 7)
 
         guard case .list(let l, _) = elements[6] else { fatalError() }
@@ -214,25 +215,25 @@ class Tests: XCTestCase {
         XCTAssertEqual(l[0].count, 1)
         XCTAssertEqual(l[1].count, 1)
 
-        guard case .text(let t1) = l[0][0] else { fatalError() }
-        XCTAssertEqual(t1.count, 2)
+        guard case .tasklist(let tl1, let checked1) = l[0][0] else { fatalError() }
+        XCTAssertTrue(checked1)
 
-//        guard case let .checkbox(cb1, cr1) = t1[0] else { fatalError() }
-//        XCTAssertTrue(cb1)
-//        XCTAssertEqual(cr1.location, 244) // +4
-//        XCTAssertEqual(cr1.length, 3)
-//        XCTAssertEqual(markdown.substring(with: cr1), "[x]")
-//
-//        guard case .text(let t2) = l[1][0] else { fatalError() }
-//        XCTAssertEqual(t2.count, 2)
-//
-//        guard case let .checkbox(cb2, cr2) = t2[0] else { fatalError() }
-//        XCTAssertFalse(cb2)
-//        XCTAssertEqual(cr2.location, 269)
-//        XCTAssertEqual(cr2.length, 3)
-//        XCTAssertEqual(markdown.substring(with: cr2), "[ ]")
+        guard case .text(let tlc1) = tl1[0] else { fatalError() }
+        XCTAssertEqual(tlc1.count, 1)
+
+        guard case .text(let te1) = tlc1[0] else { fatalError() }
+        XCTAssertEqual(te1, "And checked boxes")
+
+        guard case .tasklist(let tl2, let checked2) = l[1][0] else { fatalError() }
+        XCTAssertFalse(checked2)
+
+        guard case .text(let tlc2) = tl2[0] else { fatalError() }
+        XCTAssertEqual(tlc2.count, 1)
+
+        guard case .text(let te2) = tlc2[0] else { fatalError() }
+        XCTAssertEqual(te2, "Or unchecked")
     }
-*/
+
     func testComplicatedLists() {
         let markdown = """
             - a
