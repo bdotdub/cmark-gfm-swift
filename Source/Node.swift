@@ -98,12 +98,12 @@ public class Node: CustomStringConvertible {
         return cmark_node_get_type(node)
     }
     
-    var listType: cmark_list_type {
+    public var listType: cmark_list_type {
         get { return cmark_node_get_list_type(node) }
         set { cmark_node_set_list_type(node, newValue) }
     }
     
-    var listStart: Int {
+    public var listStart: Int {
         get { return Int(cmark_node_get_list_start(node)) }
         set { cmark_node_set_list_start(node, Int32(newValue)) }
     }
@@ -112,7 +112,7 @@ public class Node: CustomStringConvertible {
         return String(cString: cmark_node_get_type_string(node)!)
     }
     
-    var literal: String? {
+    public var literal: String? {
         get { return String(unsafeCString: cmark_node_get_literal(node)) }
         set {
           if let value = newValue {
@@ -131,7 +131,7 @@ public class Node: CustomStringConvertible {
         return Position(line: cmark_node_get_end_line(node), column: cmark_node_get_end_column(node))
     }
 
-    var headerLevel: Int {
+    public var headerLevel: Int {
         get { return Int(cmark_node_get_heading_level(node)) }
         set { cmark_node_set_heading_level(node, Int32(newValue)) }
     }
@@ -148,7 +148,7 @@ public class Node: CustomStringConvertible {
         }
     }
     
-    var urlString: String? {
+    public var urlString: String? {
         get { return String(unsafeCString: cmark_node_get_url(node)) }
         set {
           if let value = newValue {
@@ -159,7 +159,7 @@ public class Node: CustomStringConvertible {
         }
     }
     
-    var title: String? {
+    public var title: String? {
         get { return String(unsafeCString: cmark_node_get_title(node)) }
         set {
           if let value = newValue {
