@@ -47,6 +47,16 @@ bool cmark_gfm_extensions_get_tasklist_item_checked(cmark_node *node);
 CMARK_GFM_EXTENSIONS_EXPORT
 int cmark_gfm_extensions_set_tasklist_item_checked(cmark_node *node, bool is_checked);
 
+/** Gets the title for a wikilink
+ */
+CMARK_GFM_EXTENSIONS_EXPORT
+const char *cmark_gfm_extensions_get_wikilink_title(cmark_node *node);
+
+/** Gets the URL for a wikilink
+*/
+CMARK_GFM_EXTENSIONS_EXPORT
+const char *cmark_gfm_extensions_get_wikilink_url(cmark_node *node);
+
 #ifdef __cplusplus
 }
 #endif

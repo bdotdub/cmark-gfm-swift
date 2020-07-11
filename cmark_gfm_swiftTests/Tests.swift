@@ -373,19 +373,7 @@ class Tests: XCTestCase {
                         """
         let html = Node(markdown: markdown, extensions: [.wikilink])!.html
         let expected = """
-                        <p>This is an empty wikilink </p>
-
-                        """
-        XCTAssertEqual(html, expected)
-    }
-
-    func testRenderHalfEmptyWikiLink() {
-        let markdown = """
-                        This is a half empty wikilink [[description|]]
-                        """
-        let html = Node(markdown: markdown, extensions: [.wikilink])!.html
-        let expected = """
-                        <p>This is a half empty wikilink <a href="description">description</a></p>
+                        <p>This is an empty wikilink [[|]]</p>
 
                         """
         XCTAssertEqual(html, expected)
@@ -487,7 +475,6 @@ class Tests: XCTestCase {
 
         // Wikilink
         let wikilink = node.children[2].children[1]
-        print(wikilink)
         XCTAssertEqual(wikilink.start.line,6)
         XCTAssertEqual(wikilink.start.column, 3)
         XCTAssertEqual(wikilink.end.line, 6)
@@ -520,6 +507,54 @@ class Tests: XCTestCase {
         XCTAssertEqual(autolinkWWW.start.column, 83)
         XCTAssertEqual(autolinkWWW.end.line, 8)
         XCTAssertEqual(autolinkWWW.end.column, 99)
+    }
+
+    func testValidWikilinks() {
+        let cases = [
+            ("[[wikilink|https://bwong.net]]", "wikilink", "https://bwong.net"),
+            ("[[wikilink|./relative]]", "wikilink", "./relative"),
+            ("[[wikilink]]", "wikilink", "wikilink"),
+        ]
+
+        cases.forEach { testCase in
+            let elements = Node(markdown: testCase.0, extensions: [.wikilink])!.flatElements
+            guard case .text(let textElements) = elements[0] else {
+                XCTFail("expected a text element")
+                return
+            }
+            guard case .wikilink(_, let title, let url) = textElements[0] else {
+                XCTFail("expected a wikilink")
+                return
+            }
+
+            XCTAssertEqual(title, testCase.1)
+            XCTAssertEqual(url, testCase.2)
+        }
+    }
+
+    func testInvalidWikilinks() {
+        let cases = [
+            "[[wikilink|https://bwong.net]",
+            "[[wikilink]",
+            "[wikilink]]",
+            "[[]]",
+            "[[|]]",
+            "[[pre|]]",
+            "[[|post]]",
+        ]
+
+        cases.forEach { testCase in
+            let elements = Node(markdown: testCase, extensions: [.wikilink])!.flatElements
+            guard case .text(let textElements) = elements[0] else {
+                XCTFail("expected a text element")
+                return
+            }
+            guard case .text(let text) = textElements[0] else {
+                XCTFail("expected a wikilink")
+                return
+            }
+            print(text)
+        }
     }
 
 }

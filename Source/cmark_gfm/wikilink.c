@@ -4,57 +4,19 @@
 
 cmark_node_type CMARK_NODE_WIKILINK;
 
-const char *cmark_node_get_wikilink(cmark_node *node) {
-  if (node->type != CMARK_NODE_WIKILINK) {
+const char *cmark_gfm_extensions_get_wikilink_title(cmark_node *node) {
+  if (node == NULL || node->type != CMARK_NODE_WIKILINK) {
+    return NULL;
+  }
+  return cmark_chunk_to_cstr(cmark_node_mem(node), &node->as.link.title);
+}
+
+const char *cmark_gfm_extensions_get_wikilink_url(cmark_node *node) {
+  if (node == NULL || node->type != CMARK_NODE_WIKILINK) {
     return NULL;
   }
 
-  // str is of form [x|x]] where x could be empty
-  const char* str = cmark_chunk_to_cstr(cmark_node_mem(node), (cmark_chunk *)node->as.opaque);
-
-  const char* delim = "|";
-
-  // Length of string without [ and ]
-  unsigned long wikilinkLen = strlen(str) - 3;
-
-  char* wikilink = calloc(wikilinkLen + 1, sizeof(char));
-  if (!wikilink) {
-    return NULL;
-  }
-  strncpy(wikilink, &str[1], wikilinkLen);
-
-  // Get first string (the description) from seperated
-  char* description = strsep(&wikilink, delim);
-
-  // Description is empty
-  if (description == NULL || strcmp(description, "") == 0) {
-    return NULL;
-  }
-
-  unsigned long descLen = strlen(description);
-
-  // Setup contents for return result
-  char* contents = calloc(descLen, sizeof(char));
-
-  char* link = strsep(&wikilink, delim);
-
-  // Link is empty, so use description as link
-  if (link == NULL || strcmp(link, "") == 0) {
-    // Allocate contents to double description length + length of \"> + null terminator
-    contents = realloc(contents, (descLen * 2) + 3);
-    strcat(contents, description);
-    strcat(contents, "\">");
-    strcat(contents, description);
-  } else {
-    // Allocate contents to description length + link length
-    // + length of \"> + null terminator
-    contents = realloc(contents, descLen + strlen(link) + 3);
-    strcat(contents, link);
-    strcat(contents, "\">");
-    strcat(contents, description);
-  }
-
-  return contents;
+  return cmark_chunk_to_cstr(cmark_node_mem(node), &node->as.link.url);
 }
 
 static cmark_node *match(cmark_syntax_extension *self, cmark_parser *parser,
@@ -73,8 +35,6 @@ static cmark_node *match(cmark_syntax_extension *self, cmark_parser *parser,
   if (start > 0 && data[start] != '[') {
     return NULL;
   }
-
-  end++;
 
   // Read up until we see the first terminating ']'
   while (end < size && data[end] != ']') {
@@ -97,10 +57,55 @@ static cmark_node *match(cmark_syntax_extension *self, cmark_parser *parser,
   cmark_node *node = cmark_node_new_with_mem(CMARK_NODE_WIKILINK, parser->mem);
 
   cmark_chunk *wikilink_chunk;
-  node->as.opaque = wikilink_chunk = parser->mem->calloc(1, sizeof(cmark_chunk));
-  wikilink_chunk->data = data + at;
-  wikilink_chunk->len = end - at;
+  wikilink_chunk = parser->mem->calloc(1, sizeof(cmark_chunk));
+  wikilink_chunk->data = data + start;
+  wikilink_chunk->len = end - start;
 
+  // If contents are empty, fail the match.
+  size_t contentsLen = wikilink_chunk->len - 4;
+  if (contentsLen == 0) {
+    printf("BWLOG no contents");
+    return NULL;
+  }
+
+  // Convert the chunk to a c string.
+  const char *fullStr = cmark_chunk_to_cstr(parser->mem, wikilink_chunk);
+
+  // Copy the string without [[ and ]]
+  char *contents = calloc(contentsLen + 1, sizeof(char));
+  memcpy(contents, fullStr + 2, contentsLen);
+  contents[contentsLen] = '\0';
+
+  // If it starts with or ends with a '|', it is not valid.
+  if (contents[0] == '|' || contents[strlen(contents) - 1] == '|') {
+    printf("BWLOG starts or ends");
+    return NULL;
+  }
+
+  // Get the first token - the description
+  const char *title = strtok(contents, "|");
+  if (title == NULL) {
+    printf("BWLOG no totle?");
+    return NULL;
+  }
+  node->as.link.title = cmark_chunk_literal(title);
+
+  // Get the part after '|'
+  const char *link = strtok(NULL, "|");
+  if (link == NULL) {
+    // If there is no second token, this means it's a simple wikilink
+    // and the reference should be the title.
+    node->as.link.url = node->as.link.title;
+  } else if (strlen(link) > 0) {
+    // If we do get a token, set that as the URL.
+    node->as.link.url = cmark_chunk_literal(link);
+  } else {
+    // If somehow it's empty, ignore.
+    printf("BWLOG ignoring");
+    return NULL;
+  }
+
+  // Set position
   node->start_line = node->end_line = cmark_inline_parser_get_line(inline_parser);
   node->start_column = start + 1;
   node->end_column = end + 1;
@@ -118,15 +123,18 @@ static void html_render(cmark_syntax_extension *extension,
     return;
   }
 
-  const char *contents = cmark_node_get_wikilink(node);
+  const char *title = cmark_gfm_extensions_get_wikilink_title(node);
+  const char *url = cmark_gfm_extensions_get_wikilink_url(node);
 
-  if (contents == NULL) {
+  if (title == NULL || url == NULL) {
     return;
   }
 
   cmark_strbuf *html = renderer->html;
   cmark_strbuf_puts(html, "<a href=\"");
-  cmark_strbuf_puts(html, contents);
+  cmark_strbuf_puts(html, url);
+  cmark_strbuf_puts(html, "\">");
+  cmark_strbuf_puts(html, title);
   cmark_strbuf_puts(html, "</a>");
 }
 
@@ -143,19 +151,12 @@ static int can_contain(cmark_syntax_extension *extension, cmark_node *node,
   return CMARK_NODE_TYPE_INLINE_P(child_type);
 }
 
-static void opaque_free(cmark_syntax_extension *self, cmark_mem *mem, cmark_node *node) {
-  if (node->type == CMARK_NODE_WIKILINK) {
-    mem->free(node->as.opaque);
-  }
-}
-
 cmark_syntax_extension *create_wikilink_extension(void) {
   cmark_syntax_extension *self = cmark_syntax_extension_new("wikilink");
   cmark_llist *special_chars = NULL;
 
   cmark_syntax_extension_set_get_type_string_func(self, get_type_string);
   cmark_syntax_extension_set_can_contain_func(self, can_contain);
-  cmark_syntax_extension_set_opaque_free_func(self, opaque_free);
   cmark_syntax_extension_set_html_render_func(self, html_render);
 
   CMARK_NODE_WIKILINK = cmark_syntax_extension_add_node(1);

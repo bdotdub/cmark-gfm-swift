@@ -28,6 +28,8 @@ extension Inline {
             return .link(children: children.compactMap { $0.textElement }, title: title, url: url)
         case .strikethrough(let children):
             return .strikethrough(children: children.compactMap { $0.textElement })
+        case .wikilink(let children, let title, let url):
+            return .wikilink(children: children.compactMap { $0.textElement }, title: title, url: url)
         case .image, .html:
             return nil
         }

@@ -28,6 +28,7 @@ public enum Inline {
     case link(children: [Inline], title: String?, url: String?)
     case image(children: [Inline], title: String?, url: String?)
     case strikethrough(children: [Inline])
+    case wikilink(children: [Inline], title: String?, url: String?)
 }
 
 enum InlineType: String {
@@ -42,6 +43,7 @@ enum InlineType: String {
     case strong
     case text
     case strikethrough
+    case wikilink
 }
 
 extension Inline: ExpressibleByStringLiteral {
@@ -121,6 +123,12 @@ extension Inline {
             self = .image(children: inlineChildren(), title: node.title, url: node.urlString)
         case .strikethrough:
             self = .strikethrough(children: inlineChildren())
+        case .wikilink:
+            self = .wikilink(
+              children: inlineChildren(),
+              title: String(unsafeCString: cmark_gfm_extensions_get_wikilink_title(node.node)),
+              url: String(unsafeCString: cmark_gfm_extensions_get_wikilink_url(node.node))
+            )
         }
     }
 }
