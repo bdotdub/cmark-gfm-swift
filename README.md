@@ -1,5 +1,7 @@
 # cmark-gfm-swift
 
+![Build Status](https://github.com/bdotdub/cmark-gfm-swift/workflows/Test/badge.svg)
+
 A Swift wrapper of cmark with GitHub Flavored Markdown extensions.
 
 ### Usage
