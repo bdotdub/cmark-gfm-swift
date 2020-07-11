@@ -553,7 +553,7 @@ class Tests: XCTestCase {
                 XCTFail("expected a wikilink")
                 return
             }
-            print(text)
+            XCTAssertEqual(text, testCase)
         }
     }
 
