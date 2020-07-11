@@ -36,11 +36,9 @@ var options: [MarkdownOption] = [
 
 // List of markdown extensions
 var extensions: [MarkdownExtension] = [
-  .emoji,        // GitHub emojis
   .table,        // Tables
   .autolink,     // Autolink URLs
-  .mention,      // GitHub @ mentions
-  .checkbox,     // Checkboxes
+  .tasklist,     // Tasklist
   .wikilink,     // WikiLinks
   .strikethrough // Strikethrough
 ]
@@ -63,6 +61,10 @@ if let parsed = Node(
 ### Acknowledgements
 
 - [cmark](https://github.com/commonmark/cmark)
-- [GitHub cmark fork](https://github.com/github/cmark)
-- [commonmark-swift](https://github.com/chriseidhof/commonmark-swift)
-- [libcmark_gfm](https://github.com/KristopherGBaker/libcmark_gfm)
+- [GitHub cmark-gfm](https://github.com/github/cmark-gfm)
+- Based off of work by:
+  - [Ryan Nystrom](https://github.com/rnystrom)'s original library: https://github.com/GitHawkApp/cmark-gfm-swift
+  - [Luka Kerr](https://github.com/lukakerr)'s fork that adds initial wikilink support: https://github.com/lukakerr/cmark-gfm-swift
+- Original Inspirations
+  - [commonmark-swift](https://github.com/chriseidhof/commonmark-swift)
+  - [libcmark_gfm](https://github.com/KristopherGBaker/libcmark_gfm)
