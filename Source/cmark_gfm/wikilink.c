@@ -103,8 +103,8 @@ static cmark_node *match(cmark_syntax_extension *self, cmark_parser *parser,
 
   // Set position
   node->start_line = node->end_line = cmark_inline_parser_get_line(inline_parser);
-  node->start_column = start + 1;
-  node->end_column = end + 1;
+  node->start_column = cmark_inline_parser_get_column(inline_parser);
+  node->end_column = node->start_column + (wikilink_chunk->len);
 
   cmark_inline_parser_set_offset(inline_parser, start + (end - start));
   cmark_node_set_syntax_extension(node, self);

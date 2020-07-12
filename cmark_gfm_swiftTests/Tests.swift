@@ -557,5 +557,83 @@ class Tests: XCTestCase {
         }
     }
 
+    func testInlineWikilinks_inHeader() {
+        // Wikilink in header
+        let headerWikilinkNode = Node(markdown: "# Header [[wikilink]]", extensions: [.wikilink])!
+        let headerWikilinkElements = headerWikilinkNode.flatElements
+        guard case .heading(let textElements, _) = headerWikilinkElements[0] else {
+            XCTFail("expected a text element")
+            return
+        }
+
+        guard case .wikilink(_, let title, let url) = textElements[1] else {
+            XCTFail("expected a wikilink")
+            return
+        }
+
+        XCTAssertEqual("wikilink", title)
+        XCTAssertEqual("wikilink", url)
+
+        let wikilinkNode = headerWikilinkNode.children[0].children[1]
+        XCTAssertEqual(wikilinkNode.start.line, 1)
+        XCTAssertEqual(wikilinkNode.start.column, 10)
+        XCTAssertEqual(wikilinkNode.end.line, 1)
+        XCTAssertEqual(wikilinkNode.end.column, 22)
+    }
+
+    func testInlineWikilinks_inList() {
+        // Wikilink in list
+        let listNode = Node(markdown: "- First item\n- second item [[wikilink]]", extensions: [.wikilink])!
+        let listElements = listNode.flatElements
+        guard case .list(let items, _) = listElements[0] else {
+            XCTFail("expected a list element")
+            return
+        }
+
+        guard case .text(let line) = items[1][0] else {
+            XCTFail("expected a text list item")
+            return
+        }
+
+        guard case .wikilink(_, let title, let url) = line[1] else {
+            XCTFail("expected a wikilink")
+            return
+        }
+
+        XCTAssertEqual("wikilink", title)
+        XCTAssertEqual("wikilink", url)
+
+        let wikilinkNode = listNode.children[0].children[1].children[0].children[1]
+        XCTAssertEqual(wikilinkNode.start.line, 2)
+        XCTAssertEqual(wikilinkNode.start.column, 15)
+        XCTAssertEqual(wikilinkNode.end.line, 2)
+        XCTAssertEqual(wikilinkNode.end.column, 27)
+    }
+
+    func testInlineWikilinks_inParagraph() {
+        // Wikilink in list
+        let node = Node(markdown: "Some regular text\n\nMore text with inline [[wikilink]] with content after", extensions: [.wikilink])!
+        let elements = node.flatElements
+        guard case .text(let line) = elements[1] else {
+            XCTFail("expected a text element")
+            return
+        }
+
+        guard case .wikilink(_, let title, let url) = line[1] else {
+            XCTFail("expected a wikilink")
+            return
+        }
+
+        XCTAssertEqual("wikilink", title)
+        XCTAssertEqual("wikilink", url)
+
+        let wikilinkNode = node.children[1].children[1]
+        XCTAssertEqual(wikilinkNode.start.line, 3)
+        XCTAssertEqual(wikilinkNode.start.column, 23)
+        XCTAssertEqual(wikilinkNode.end.line, 3)
+        XCTAssertEqual(wikilinkNode.end.column, 35)
+    }
+
+
 }
 
