@@ -64,7 +64,6 @@ static cmark_node *match(cmark_syntax_extension *self, cmark_parser *parser,
   // If contents are empty, fail the match.
   size_t contentsLen = wikilink_chunk->len - 4;
   if (contentsLen == 0) {
-    printf("BWLOG no contents");
     return NULL;
   }
 
@@ -78,14 +77,12 @@ static cmark_node *match(cmark_syntax_extension *self, cmark_parser *parser,
 
   // If it starts with or ends with a '|', it is not valid.
   if (contents[0] == '|' || contents[strlen(contents) - 1] == '|') {
-    printf("BWLOG starts or ends");
     return NULL;
   }
 
   // Get the first token - the description
   const char *title = strtok(contents, "|");
   if (title == NULL) {
-    printf("BWLOG no totle?");
     return NULL;
   }
   node->as.link.title = cmark_chunk_literal(title);
@@ -101,7 +98,6 @@ static cmark_node *match(cmark_syntax_extension *self, cmark_parser *parser,
     node->as.link.url = cmark_chunk_literal(link);
   } else {
     // If somehow it's empty, ignore.
-    printf("BWLOG ignoring");
     return NULL;
   }
 
