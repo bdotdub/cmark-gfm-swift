@@ -95,7 +95,7 @@ enum BlockType: String {
 }
 
 extension Inline {
-    init?(_ node: Node) {
+    public init?(_ node: Node) {
         guard let type = InlineType(rawValue: node.typeString) else {
             return nil
         }
